@@ -2,14 +2,14 @@
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
+$font-family-sans-serif: 'Ubuntu', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
 // Colors
 $blue: #3490dc;
 $indigo: #6574cd;
-$purple: #9561e2;
+$purple: #831ce2;
 $pink: #f66d9b;
 $red: #e3342f;
 $orange: #f6993f;
@@ -17,3 +17,17 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+$muted: #818181;
+$grey: #53525299;
+
+// Border color
+$border-color: #0000000a;
+
+$grid-gap: 2rem;
+$content-padding: 0 2rem;
+
+
+$primary: $purple;
+$secondary: $cyan;
+
+$link: $primary;

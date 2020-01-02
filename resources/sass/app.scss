@@ -1,9 +1,30 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&display=swap&subset=cyrillic');
+@import '~@mdi/font/css/materialdesignicons.min.css';
 
-// Variables
-@import 'variables';
 
+
+
+@import "utils/grid";
+@import "utils/flex";
+
+// Variables and settings
+@import 'base/variables';
+@import "base/settings";
+
+
+
+@import "components/card";
+@import "components/input";
+@import "components/button";
+
+// CSS libs
 @import "../css/normalize.css";
-@import "../css/skeleton.css";
+
+
+@import "base/core";
+
+
+
+
 
