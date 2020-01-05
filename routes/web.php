@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('login');
 });
+Route::get('/teacher', function () {
+    return view('pages.teacher.index');
+})->name('teacher-index');
+
+
+Route::get('/student', function () {
+    return view('pages.student.index');
+})->name('student-index');;
+

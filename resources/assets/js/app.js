@@ -27,9 +27,32 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
+import anime from "animejs";
+
+
 let login = new Vue({
     el: '#login',
     data: {
-        showPassword: false
+        showPassword: false,
+    },
+    methods: {
+        showForm: function (openForm, closeForm) {
+            let forms = anime.timeline({
+                duration: 750,
+                easing: 'easeInOutBack'
+            });
+            forms.add({
+                targets: closeForm,
+                translateX: '150%',
+                complete: () => {
+                    document.querySelector(openForm).style.display = 'flex';
+                    document.querySelector(closeForm).style.display = 'none';
+                }
+            }).add({
+                targets: openForm,
+                translateX: ['150%', '0%']
+            });
+        }
     }
 });

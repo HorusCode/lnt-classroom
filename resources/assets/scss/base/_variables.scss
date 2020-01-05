@@ -18,7 +18,8 @@ $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 $muted: #818181;
-$grey: #53525299;
+$grey: #535252;
+
 
 // Border color
 $border-color: #0000000a;
@@ -26,6 +27,7 @@ $border-color: #0000000a;
 $grid-gap: 2rem;
 $content-padding: 0 2rem;
 
+$text-color: darken($grey, 15%);
 
 $primary: $purple;
 $secondary: $cyan;

@@ -10,8 +10,6 @@
 
     <title> @yield('title') </title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- Fonts -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -29,7 +27,7 @@
                 <h1 class="text-title text-primary">Tetra</h1>
                 <h3 class="text-subtitle text-secondary">Class management system for colleges</h3>
             </header>
-            <div class="card login-form-card">
+            <div class="card loginForm">
                 <div class="card-content">
                     <header class="card-header">
                         <h3 class="text-center mx-1"><span class="text-primary">Login</span> your account</h3>
@@ -47,12 +45,12 @@
                             <div class="input-group">
                                 <span class="mdi mdi-textbox-password pos-left"></span>
                                 <input v-bind:type="showPassword ? 'text' : 'password'" id="password" class="input">
-                                <span class="mdi mdi-eye-outline pos-right text-muted" @click="showPassword = !showPassword"></span>
+                                <span class="mdi  pos-right eye-password" :class="[{'mdi-eye-outline':showPassword}, 'mdi-eye-off-outline']" @click="showPassword = !showPassword"></span>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <span class="label-link" @click="">Is this your first time?</span>
-                            <span class="label-link">Forget password?</span>
+                            <span class="label-link" @click="showForm('.codeForm','.loginForm')">Is this your first time?</span>
+                            <span class="label-link" @click="showForm('.emailForm','.loginForm')">Forget password?</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mx-1">
                             <button type="submit" class="btn btn-primary width-3">Login</button>
@@ -60,8 +58,57 @@
                     </form>
                 </div>
             </div>
+            <div class="card codeForm">
+                <div class="card-content">
+                    <header class="card-header">
+                        <h3 class="text-center mx-1">Write <span class="text-primary">code</span> your account</h3>
+                    </header>
+                    <form>
+                        <div class="input-line">
+                            <label for="code" class="input-label">Code</label>
+                            <div class="input-group">
+                                <span class="mdi mdi-code-brackets pos-left"></span>
+                                <input type="text" id="code" class="input">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="label-link" @click="showForm('.loginForm','.codeForm')">← Back</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mx-1">
+                            <button type="submit" class="btn btn-primary width-3">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card emailForm">
+                <div class="card-content">
+                    <header class="card-header">
+                        <h3 class="text-center mx-1">Write your <span class="text-primary">email</span> for pass</h3>
+                    </header>
+                    <form>
+                        <div class="input-line">
+                            <label for="email" class="input-label">Email</label>
+                            <div class="input-group">
+                                <span class="mdi mdi-email-outline pos-left"></span>
+                                <input type="text" id="email" class="input">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="label-link" @click="showForm('.loginForm','.emailForm')">← Back</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mx-1">
+                            <button type="submit" class="btn btn-primary width-3">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<script src="{{ mix('js/manifest.js') }}"></script>
+<script src="{{ mix('js/vendor.js') }}"></script>
+<script src="{{ mix('js/app.js') }}"></script>
+@stack('scripts')
 </body>
 </html>

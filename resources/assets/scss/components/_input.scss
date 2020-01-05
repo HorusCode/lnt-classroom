@@ -44,6 +44,14 @@
   }
 }
 
+.eye-password {
+  color: $muted;
+  cursor: pointer;
+  &:hover {
+    color: $text-color;
+  }
+}
+
 .invalid-feedback {
   @extend .text-danger
 }

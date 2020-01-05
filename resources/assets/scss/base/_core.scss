@@ -109,9 +109,6 @@ a {
   flex: 1 0 40%;
 }
 
-.login-form-card {
-  margin-top: 15%;
-}
 
 .label-link {
   display: block;
@@ -124,6 +121,13 @@ a {
 // Forms
 .input-label {
   color: $primary;
+}
+.codeForm, .emailForm, .loginForm {
+  margin-top: 20%;
+}
+.codeForm, .emailForm {
+  transform: translateX(150%);
+  display: none;
 }
 
 
