@@ -17,6 +17,7 @@
 </head>
 <body>
 <div id="app" class="grid-main">
+    @include('includes.sidebar')
     <main>
         @yield('content')
     </main>

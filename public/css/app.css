@@ -774,6 +774,125 @@ th {
   width: 11rem;
 }
 
+.vertical-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vertical-list__heading {
+  text-transform: uppercase;
+  font-size: 0.7438rem;
+  margin: 1rem 0;
+  color: #694ad3;
+  white-space: nowrap;
+}
+
+.vertical-list__item > a {
+  display: block;
+  line-height: 2.5rem;
+  height: 2.5rem;
+  padding: 0 1.5rem 0 1.95rem;
+  position: relative;
+  border-radius: 0.35rem;
+  color: #6c757d;
+  white-space: nowrap;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  margin: 0.1rem 0;
+}
+
+.vertical-list .pos-left {
+  left: 0;
+}
+
+.vertical-list .pos-right {
+  right: 0;
+}
+
+.submenu {
+  -webkit-transition: padding 300ms;
+  transition: padding 300ms;
+  padding: 0 0.5rem;
+}
+
+.submenu__item > a {
+  display: block;
+  color: #6c757d;
+  height: 2.2rem;
+  line-height: 2.2rem;
+  padding: 0 2.25rem 0;
+  border-radius: 50px;
+  margin: 0;
+  position: relative;
+}
+
+.submenu__item > a::before {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  left: 20px;
+  top: 50%;
+  margin-top: -2px;
+  content: "";
+  background: #694ad3;
+  border-radius: 50%;
+}
+
+.submenu__item > a:hover {
+  color: #694ad3;
+}
+
+.submenu__item > a.active {
+  background-color: #694ad3;
+  color: #fff;
+}
+
+.submenu__item > a.active::before {
+  background: #fff;
+}
+
+.list-group {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: -1px;
+}
+
+.list-group-content {
+  display: -webkit-box;
+  display: flex;
+  position: relative;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.list-group-content-right {
+  margin-left: auto;
+}
+
+.list-group-content-right {
+  margin-left: auto;
+}
+
+.list-group .item-icon {
+  font-size: 2.5rem;
+}
+
+.list-group .list-heading {
+  font-size: 1.1rem;
+}
+
 * {
   border: 0;
   margin: 0;
