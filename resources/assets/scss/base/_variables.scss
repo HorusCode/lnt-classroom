@@ -3,7 +3,7 @@ $body-bg: #f8fafc;
 
 // Typography
 $font-family-sans-serif: 'Ubuntu', sans-serif;
-$font-size-base: 0.9rem;
+$font-size-base: 1rem;
 $line-height-base: 1.6;
 
 // Colors
@@ -25,9 +25,14 @@ $grey: #535252;
 $border-color: #0000000a;
 
 $grid-gap: 2rem;
+$margin-gap: 1.4rem;
 $content-padding: 0 2rem;
 
+
+
 $text-color: darken($grey, 15%);
+
+
 
 $primary: $purple;
 $secondary: $cyan;

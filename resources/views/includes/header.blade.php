@@ -1,19 +1,12 @@
-
-<header class="app-container__header">
-    <span class="page-title">
-
-    </span>
-    <div class="d-flex justify-content-between align-items-center">
-        <div class="user-name">
-
-            <span class="user-employee text-muted">
-
-            </span>
+<header class="header">
+        <div class="logo">
+            {{--<img src="" alt="Logo" width="50" height="50" class="logo--image">--}}
+            Логотип
         </div>
-        <span class="avatar">
-            <span class="mdi mdi-account-circle-outline"></span>
-        </span>
-
-    </div>
-
+        <div class="spacer"></div>
+        <ul class="header-items">
+            <li class="header-item"><button class="btn">Кек</button> </li>
+            <li class="header-item"><button class="btn">Кек</button></li>
+            <li class="header-item"><button class="btn">Кек</button></li>
+        </ul>
 </header>

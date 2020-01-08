@@ -17,10 +17,20 @@
 </head>
 <body>
 <div id="app" class="grid-main">
+{{--    Header--}}
+    @include('includes.header')
+{{--    End header --}}
+{{--    Sidebar--}}
     @include('includes.sidebar')
-    <main>
+{{--    EndSidebar--}}
+{{--    Content--}}
+    <main class="content">
         @yield('content')
     </main>
+{{--    EndContent--}}
+{{--    Footer--}}
+    @include('includes.footer')
+{{--    EndFooter--}}
 </div>
 </body>
 </html>

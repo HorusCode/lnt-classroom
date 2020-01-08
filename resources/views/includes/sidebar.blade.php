@@ -1,7 +1,8 @@
 <aside class="sidebar">
     <header class="sidebar__header d-flex justify-content-between align-items-center">
         <div class="logo">
-            <img src="" alt="Logo" width="50" height="50" class="logo--image">
+            {{--<img src="" alt="Logo" width="50" height="50" class="logo--image">--}}
+            Логотип
         </div>
         <div class="burger">
             <span></span>
@@ -39,6 +40,6 @@
         </ul>
     </div>
     <header class="sidebar__footer d-flex justify-content-center align-items-center">
-
+            <button class="btn btn-primary extended"><i class="mdi mdi-logout"></i></button>
     </header>
 </aside>

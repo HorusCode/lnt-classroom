@@ -20,15 +20,9 @@
   padding: 0 2em;
   cursor: pointer;
   box-shadow: 0 3px 5px 0 #0000003b;
+  @include button-bg($grey);
   &.btn-primary {
-    background-color: $primary;
-    transition: background-color .2s ease-in-out;
-    &:hover {
-      background-color: lighten($primary, 10);
-    }
-    &:active {
-      background-color: darken($primary, 10);
-    }
+    @include button-bg($primary)
   }
   &.is-small {
     height: 30px;
@@ -44,6 +38,9 @@
   }
   &.width-3 {
     width: 11rem;
+  }
+  &.extended {
+    width:100%;
   }
 }
 

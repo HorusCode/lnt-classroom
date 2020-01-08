@@ -11544,8 +11544,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Programmes\OSPanel\domains\classroom\resources\assets\js\app.js */"./resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! D:\Programmes\OSPanel\domains\classroom\resources\assets\scss\app.scss */"./resources/assets/scss/app.scss");
+__webpack_require__(/*! D:\Programs\OpenServer\OSPanel\domains\lnt-classroom\resources\assets\js\app.js */"./resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! D:\Programs\OpenServer\OSPanel\domains\lnt-classroom\resources\assets\scss\app.scss */"./resources/assets/scss/app.scss");
 
 
 /***/ })

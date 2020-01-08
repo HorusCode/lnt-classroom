@@ -7,8 +7,11 @@
 
 .grid-main {
   display: grid;
-  grid-template-areas: ". h h h"
+  grid-template-areas: "h h h h"
                        ". c c c"
-                       ". f f f";
+                       ". c c c"
+                       "f f f f";
   grid-template-columns: 300px repeat(3, 1fr);
+  grid-template-rows: 5rem repeat(2, 1fr) 5rem;
 }
+
