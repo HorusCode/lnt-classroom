@@ -40,6 +40,6 @@
         </ul>
     </div>
     <header class="sidebar__footer d-flex justify-content-center align-items-center">
-            <button class="btn btn-primary extended"><i class="mdi mdi-logout"></i></button>
+        <button class="btn btn-primary is-extended"><span class="mdi mdi-logout"></span></button>
     </header>
 </aside>

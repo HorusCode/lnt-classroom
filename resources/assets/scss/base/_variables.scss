@@ -23,6 +23,9 @@ $grey: #535252;
 
 // Border color
 $border-color: #0000000a;
+$radius-general: 3px;
+
+
 
 $grid-gap: 2rem;
 $margin-gap: 1.4rem;
@@ -36,5 +39,10 @@ $text-color: darken($grey, 15%);
 
 $primary: $purple;
 $secondary: $cyan;
+$success: $green;
+$danger: $red;
+$warning: $orange;
+$info: $blue;
+
 
 $link: $primary;

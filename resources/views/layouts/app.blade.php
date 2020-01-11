@@ -10,27 +10,29 @@
 
     <title> @yield('title') </title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <!-- Fonts -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
 <div id="app" class="grid-main">
-{{--    Header--}}
+    <!--Header-->
     @include('includes.header')
-{{--    End header --}}
-{{--    Sidebar--}}
+    <!--Endheader-->
+    <!--Sidebar-->
     @include('includes.sidebar')
-{{--    EndSidebar--}}
-{{--    Content--}}
+    <!--EndSidebar-->
+    <!--Content-->
     <main class="content">
         @yield('content')
     </main>
-{{--    EndContent--}}
-{{--    Footer--}}
+    <!--EndContent-->
+    <!--Footer-->
     @include('includes.footer')
-{{--    EndFooter--}}
+    <!--EndFooter-->
 </div>
+
+<script src="{{ mix('js/manifest.js') }}"></script>
+<script src="{{ mix('js/vendor.js') }}"></script>
+<script src="{{ mix('js/app.js') }}"></script>
+@stack('scripts')
 </body>
 </html>

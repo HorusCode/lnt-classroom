@@ -8,5 +8,17 @@
 .justify-content-between {justify-content: space-between;}
 .justify-content-around {justify-content: space-around;}
 .justify-content-evenly {justify-content: space-evenly;}
+.justify-content-end {justify-content: flex-end;}
 
 .spacer{flex: 1 0 auto;}
+
+
+.centered-items {
+  justify-content: center;
+  align-items: center;
+}
+
+.full-display {
+  height: 100%;
+  width: 100%;
+}
