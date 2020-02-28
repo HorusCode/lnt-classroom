@@ -26,7 +26,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'firstname',
+        'lastname',
+        'patronymic',
+        'phone',
+        'email',
+        'login'
     ];
 
     /**
@@ -46,4 +51,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+
+    public function hasRole($role)
+    {
+        return $this->role->name === $role;
+    }
 }

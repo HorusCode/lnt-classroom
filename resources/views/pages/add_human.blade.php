@@ -2,9 +2,9 @@
 
 @section('content')
     <header class="content__header">
-        <h1 class="text-title">Курсы</h1>
+        <h1 class="text-title">Добавление студентов</h1>
     </header>
     <div class="content__body">
-        @include('partials.empty_course')
+        <add-student-form></add-student-form>
     </div>
 @endsection

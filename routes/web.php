@@ -11,15 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('login');
+
+Route::get('/', 'Auth\LoginController@showLoginForm')->name('login-view');
+Route::post('/login', 'Auth\LoginController@login')->name('login');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
+
+Route::group(['middleware' => ['auth', 'role:teacher']], function () {
+    Route::get('/teacher', 'Teacher\TeacherController@index')->name('t-index');
+    Route::get('/add-student', 'Teacher\TeacherController@addStudent')->name('t-add-student');
 });
-Route::get('/teacher', function () {
-    return view('pages.teacher.index');
-})->name('teacher-index');
 
+Route::group(['middleware' => ['auth', 'role:student']], function () {
+    Route::get('/student', 'Student\StudentController@index')->name('s-index');
+});
 
-Route::get('/student', function () {
-    return view('pages.student.index');
-})->name('student-index');;
 

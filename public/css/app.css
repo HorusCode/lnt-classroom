@@ -929,7 +929,8 @@ th {
   margin-top: 2em;
 }
 
-.shadow-1 {
+.shadow-1,
+.table-wrapper {
   box-shadow: 0 3px 14px 0 #0000001a;
 }
 
@@ -1089,7 +1090,7 @@ th {
   padding: 0 20px;
   font-size: 18px;
   line-height: 1.5;
-  color: #666666;
+  color: #2d2c2c;
   background: #e6e6e6;
   letter-spacing: 1px;
   border: 1px solid transparent;
@@ -1647,6 +1648,16 @@ th {
   border-radius: 0.6rem;
   box-shadow: 0 3px 14px 0 #0000001a;
   margin: 0 1.4rem;
+  grid-template-rows: 5rem 1fr;
+}
+
+.content__header {
+  padding: 0 2rem;
+  align-self: center;
+}
+
+.content__body {
+  padding: 0 2rem;
 }
 
 .footer {
@@ -1759,6 +1770,87 @@ th {
   display: block;
 }
 
+.table-wrapper {
+  margin: 30px 0;
+  border-radius: 0.4em;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.table-header {
+  background: #435d7d;
+  color: #fff;
+  padding: 1.4rem;
+  border-radius: 3px 3px 0 0;
+}
+
+.table {
+  min-width: 100%;
+  background: #f6f6f6;
+  color: #2d2c2c;
+}
+
+.table th {
+  display: none;
+}
+
+.table tbody > tr > td {
+  border-top: 1px solid #ddd;
+}
+
+.table tbody tr:nth-of-type(odd) {
+  background-color: #ececec;
+}
+
+.table td {
+  display: block;
+}
+
+.table td:first-child {
+  padding-top: 0.5em;
+}
+
+.table td:last-child {
+  padding-bottom: 0.5em;
+}
+
+.table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 6.5em;
+  display: inline-block;
+}
+
+@media (min-width: 480px) {
+  .table td:before {
+    display: none;
+  }
+}
+
+.table th,
+.table td {
+  margin: 0.5em 1em;
+  text-align: center;
+}
+
+@media (min-width: 480px) {
+  .table th,
+  .table td {
+    display: table-cell;
+    padding: 1em 0.5em;
+  }
+
+  .table th:last-child,
+  .table td:last-child {
+    padding-right: 0;
+  }
+}
+
+.table th:before,
+.table td:before {
+  color: #dd5;
+}
+
 * {
   border: 0;
   margin: 0;
@@ -1773,7 +1865,7 @@ body {
 }
 
 #app {
-  height: inherit;
+  min-height: 100%;
   width: inherit;
 }
 
@@ -1820,13 +1912,28 @@ a {
   color: #818181;
 }
 
+.login-section {
+  height: 100%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
 .login-card {
   align-self: center;
   justify-self: center;
   width: 80%;
-  height: 80%;
+  min-height: 80%;
   box-shadow: 0 8px 14px 1px #0000007a;
   position: relative;
+}
+
+.login-card .login--form {
+  background: none;
+  box-shadow: none;
 }
 
 .login-card > .card-media {
@@ -1851,12 +1958,6 @@ a {
 .input-line .invalid-feedback,
 .input-line .valid-feedback {
   color: #694ad3;
-}
-
-.codeForm,
-.emailForm,
-.loginForm {
-  margin-top: 20%;
 }
 
 .codeForm,

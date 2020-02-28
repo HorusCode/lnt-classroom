@@ -12,7 +12,7 @@ html, body {
 }
 
 #app {
-  height: inherit;
+  min-height: 100%;
   width: inherit;
 }
 
@@ -63,13 +63,24 @@ a {
 
 
 //Login
+.login-section {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .login-card {
   align-self: center;
   justify-self: center;
   width: 80%;
-  height: 80%;
+  min-height: 80%;
   box-shadow: 0 8px 14px 1px #0000007a;
   position: relative;
+  .login--form {
+    background: none;
+    box-shadow: none;
+  }
 }
 
 
@@ -93,9 +104,7 @@ a {
 .input-label {
   color: $primary;
 }
-.codeForm, .emailForm, .loginForm {
-  margin-top: 20%;
-}
+
 .codeForm, .emailForm {
   transform: translateX(150%);
   display: none;

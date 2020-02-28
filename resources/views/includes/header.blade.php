@@ -5,8 +5,8 @@
         </div>
         <div class="spacer"></div>
         <ul class="header-items">
-            <li class="header-item"><button class="btn">Кек</button> </li>
-            <li class="header-item"><button class="btn">Кек</button></li>
-            <li class="header-item"><button class="btn">Кек</button></li>
+            <li class="header-item align-items-center">
+                <span class="mdi mdi-account-circle-outline mdi-32px"></span>
+            </li>
         </ul>
 </header>

@@ -21,8 +21,8 @@
     padding: 0 20px;
     font-size: 18px;
     line-height: 1.5;
-    color: #666666;
-    background: #e6e6e6;
+    color: $text-color;
+    background: $input-bg;
     letter-spacing: 1px;
     border: 1px solid transparent;
     &.invalid {
