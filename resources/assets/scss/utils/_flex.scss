@@ -1,4 +1,4 @@
-.d-flex {display: flex;}
+.d-flex {display: flex !important;}
 .flex-col {display: flex; flex-direction: column}
 .align-items-center {align-items: center;}
 .align-items-end {align-items: end;}
@@ -9,6 +9,7 @@
 .justify-content-around {justify-content: space-around;}
 .justify-content-evenly {justify-content: space-evenly;}
 .justify-content-end {justify-content: flex-end;}
+.justify-content-start {justify-content: flex-start;}
 
 .spacer{flex: 1 0 auto;}
 

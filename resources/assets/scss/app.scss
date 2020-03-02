@@ -3,8 +3,6 @@
 @import '~@mdi/font/css/materialdesignicons.min.css';
 
 
-
-
 @import "utils/grid";
 @import "utils/flex";
 @import "utils/anims";
@@ -27,6 +25,8 @@
 @import "components/footer";
 @import "components/modal";
 @import "components/table";
+@import "components/divider";
+@import "components/dropdown";
 
 // CSS libs
 @import "../css/normalize.css";

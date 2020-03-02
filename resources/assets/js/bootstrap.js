@@ -1,11 +1,12 @@
 import lodash from "lodash";
 import anime from "animejs";
-// import jquery from "jquery";
+/*import jquery from "jquery";*/
 import axios from "axios";
+
 
 window._ = lodash;
 window.anime = anime;
-// window.$ = window.jQuery = jquery;
+/*window.$ = window.jQuery = jquery;*/
 
 
 window.axios = axios;

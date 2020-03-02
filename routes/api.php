@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['auth:api', 'role:teacher']], function () {
+    Route::get('/groups/search', 'Api\v1\GroupController@search')->name('groups.search');
+    Route::resource('/groups', 'Api\v1\GroupController');
 });

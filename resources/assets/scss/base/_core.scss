@@ -81,6 +81,9 @@ a {
     background: none;
     box-shadow: none;
   }
+  .input-label {
+    color: $primary;
+  }
 }
 
 
@@ -101,9 +104,7 @@ a {
 }
 
 // Forms
-.input-label {
-  color: $primary;
-}
+
 
 .codeForm, .emailForm {
   transform: translateX(150%);

@@ -37,3 +37,9 @@
 @stack('scripts')
 </body>
 </html>
+<script>
+  import Clients from '../assets/js/components/Clients';
+  export default {
+    components: {Clients},
+  };
+</script>

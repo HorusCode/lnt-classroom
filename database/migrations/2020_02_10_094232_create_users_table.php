@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
 
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
+            $table->string('login_code', 10)->nullable();
             $table->timestamps();
         });
     }
