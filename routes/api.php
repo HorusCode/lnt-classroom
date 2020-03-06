@@ -16,4 +16,5 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => ['auth:api', 'role:teacher']], function () {
     Route::get('/groups/search', 'Api\v1\GroupController@search')->name('groups.search');
     Route::resource('/groups', 'Api\v1\GroupController');
+    Route::resource('/students', 'Api\v1\StudentController');
 });

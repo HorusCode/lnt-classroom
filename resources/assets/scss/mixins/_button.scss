@@ -9,6 +9,12 @@
   &:active {
     background-color:lighten($bg,10%);
   }
+  .spinner {
+    &:before, &:after {
+      border-color: set-text-color($bg);
+    }
+
+  }
 }
 
 @mixin button-outlined($color) {

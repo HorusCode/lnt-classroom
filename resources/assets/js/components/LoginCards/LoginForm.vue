@@ -35,7 +35,10 @@
                     <span class="label-link" @click="$emit('showform', '.loginForm','.emailForm')">Forget password?</span>
                 </div>
                 <div class="d-flex align-items-center justify-content-center mx-1">
-                    <button type="submit" class="btn btn-primary width-3">Login</button>
+                    <button type="submit" class="btn btn-primary width-1">
+                        <div class="spinner spinner-3 s-24" v-if="loading"></div>
+                        <span v-else>Вход</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -52,12 +55,14 @@
         email: '',
         password: '',
         csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-        errors: {}
+        errors: {},
+        loading: false,
       };
     },
     methods: {
       login() {
         this.errors = {};
+        this.loading = true;
         axios.post('/login', {
           'email': this.email,
           'password': this.password,
@@ -68,6 +73,8 @@
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
+        }).finally(() => {
+          this.loading = false;
         });
       }
     }

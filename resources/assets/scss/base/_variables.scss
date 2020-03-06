@@ -21,7 +21,7 @@ $muted: #818181;
 $grey: #535252;
 
 // Border color
-$border-color: #0000000a;
+$border-color: rgba(0, 0, 0, 0.14);
 $radius-general: 3px;
 
 
@@ -53,3 +53,10 @@ $breakpoint-phone: 480px;
 
 $input-bg: #e6e6e6;
 $table-bg: #f6f6f6;
+
+
+//Spinner
+$basic-spinner-dimensions: 64px; //width and height of spinner
+$main-spinner-dimensions: $basic-spinner-dimensions - 2px * 2; //width and height of bigger circle
+$small-spinner-dimensions: $main-spinner-dimensions * 0.7; //width and height of smaller circle
+$spinner-color: $primary;

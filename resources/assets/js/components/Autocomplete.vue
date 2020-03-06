@@ -8,6 +8,14 @@
                    @keydown.down='down'
                    @keydown.up='up'>
             <ul class="dropdown-menu" v-if="open">
+                <li class="dropdown-menu__item disable" v-show="loading">
+                    <div class="d-flex centered-items">
+                        <div class="spinner spinner-3"></div>
+                    </div>
+                </li>
+                <li class="dropdown-menu__item disable" v-show="isEmpty && !loading">
+                    Ничего не найдено
+                </li>
                 <li class="dropdown-menu__item" v-for="(suggestion, index) in matches"
                     v-bind:class="{'active': isActive(index)}"
                     @click="suggestionClick(index)">
@@ -30,12 +38,17 @@
         type: Array,
         required: true,
       },
+      loading: {
+        type: Boolean,
+        required: false,
+        default: false
+      }
     },
     data() {
       return {
         open: false,
         current: 0,
-        selection: '',
+        selection: ''
       };
     },
     computed: {
@@ -50,6 +63,10 @@
         return this.selection !== '' &&
             this.matches.length !== 0 &&
             this.open === true
+      },
+
+      isEmpty() {
+        return this.matches.length === 0;
       }
     },
     methods: {

@@ -110,6 +110,16 @@
   }
 
 
+  &[disabled='disabled'] {
+    background-color: #d5d5d5;
+    transition: none;
+    cursor: default;
+    opacity: .61;
+    &:hover {
+      background-color: #d5d5d5;
+    }
+  }
+
   &.is-small {
     padding: .5rem 1rem !important;
     font-size: small;
@@ -129,6 +139,8 @@
     padding: 0.55rem .645rem;;
     letter-spacing: normal;
   }
-
+  &.width-1 {
+    width: 9rem;
+  }
 }
 

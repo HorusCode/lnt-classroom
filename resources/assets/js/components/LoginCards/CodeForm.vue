@@ -16,7 +16,7 @@
                     <span class="label-link" @click="$emit('showform', '.codeForm','.loginForm')">← Back</span>
                 </div>
                 <div class="d-flex align-items-center justify-content-center mx-1">
-                    <button type="submit" class="btn btn-primary width-3">Send</button>
+                    <button type="submit" class="btn btn-primary width-6em">Send</button>
                 </div>
             </form>
         </div>

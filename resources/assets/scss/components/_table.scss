@@ -11,6 +11,7 @@
   padding: $margin-gap;
   background-color: white;
   border-radius: 3px 3px 0 0;
+  z-index: 1;
   @extend .shadow-1;
 }
 
