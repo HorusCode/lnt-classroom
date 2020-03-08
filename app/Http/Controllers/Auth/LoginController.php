@@ -54,13 +54,13 @@ class LoginController extends Controller
     {
         switch ($user->role->name) {
             case 'admin':
-                $redirect = route('a-index');
+                $redirect = route('admin.index');
                 break;
             case 'student':
-                $redirect = route('s-index');
+                $redirect = route('student.index');
                 break;
             case 'teacher':
-                $redirect = route('t-index');
+                $redirect = route('teacher.index');
                 break;
             default:
                 $redirect = '';

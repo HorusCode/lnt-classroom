@@ -84,6 +84,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -95,11 +122,16 @@ __webpack_require__.r(__webpack_exports__);
     return {
       data: [],
       count: 1,
-      selection: '',
+      selectionGroup: {
+        id: '',
+        group: ''
+      },
       groups: [],
       loading: false,
       maxCount: 35,
-      create: false
+      openAlert: false,
+      status: false,
+      errors: []
     };
   },
   validations: function validations() {
@@ -140,7 +172,7 @@ __webpack_require__.r(__webpack_exports__);
         if (this.data.length < this.maxCount) {
           this.data.push({
             email: '',
-            code: Math.random().toString(36).substr(2, 10).toUpperCase()
+            login_code: Math.random().toString(36).substr(2, 10).toUpperCase()
           });
         }
       }
@@ -154,20 +186,38 @@ __webpack_require__.r(__webpack_exports__);
       this.data.splice(i, 1);
     },
     sendStudents: function sendStudents() {
-      axios.post('/api/students', JSON.stringify(this.data)).then(function (response) {
-        console.log(response);
+      var _this = this;
+
+      this.errors = [];
+      axios.post('/api/students', {
+        group: this.selectionGroup.id,
+        data: this.data
+      }).then(function (response) {
+        _this.status = response.data.status;
+        _this.openAlert = true;
+
+        _.delay(function () {
+          _this.openAlert = false;
+        }, 4000);
+      })["catch"](function (error) {
+        _this.errors = error.response.data.errors;
+        _this.openAlert = true;
+
+        _.delay(function () {
+          _this.openAlert = false;
+        }, 10000);
       });
     },
     searchDebounce: _.debounce(function (value) {
-      this.search(value);
+      this.search(value.group);
     }, 800),
     search: function search(value) {
-      var _this = this;
+      var _this2 = this;
 
       this.loading = true;
       axios.get("/api/groups/search?group=".concat(value)).then(function (response) {
-        _this.groups = response.data;
-        _this.loading = false;
+        _this2.groups = response.data;
+        _this2.loading = false;
       });
     }
   }
@@ -215,10 +265,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Autocomplete',
   props: {
-    value: {
-      type: String,
-      required: true
-    },
     suggestions: {
       type: Array,
       required: true
@@ -233,7 +279,10 @@ __webpack_require__.r(__webpack_exports__);
     return {
       open: false,
       current: 0,
-      selection: ''
+      selection: {
+        id: '',
+        group: ''
+      }
     };
   },
   computed: {
@@ -242,11 +291,11 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       return this.suggestions.filter(function (obj) {
-        return obj.group.toLowerCase().indexOf(_this.value.toLowerCase()) >= 0;
+        return obj.group.toLowerCase().indexOf(_this.selection.group.toLowerCase()) >= 0;
       });
     },
     openSuggestion: function openSuggestion() {
-      return this.selection !== '' && this.matches.length !== 0 && this.open === true;
+      return this.selection.group !== '' && this.matches.length !== 0 && this.open === true;
     },
     isEmpty: function isEmpty() {
       return this.matches.length === 0;
@@ -254,18 +303,18 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateValue: function updateValue(value) {
-      this.selection = value;
+      this.selection.group = value;
 
       if (this.open === false) {
         this.open = true;
         this.current = 0;
       }
 
-      this.$emit('input', value);
+      this.$emit('input', this.selection);
     },
     // When enter pressed on the input
     enter: function enter() {
-      this.$emit('input', this.matches[this.current].group);
+      this.$emit('input', this.matches[this.current]);
       this.open = false;
     },
     // When up pressed while suggestions are open
@@ -291,16 +340,17 @@ __webpack_require__.r(__webpack_exports__);
       return index === this.current;
     },
     // When one of the suggestion is clicked
-    suggestionClick: function suggestionClick(index) {
-      this.$emit('input', this.matches[index].group);
+    suggestionClick: function suggestionClick(suggestion) {
+      this.selection = suggestion;
+      this.$emit('input', suggestion);
       this.open = false;
     }
   },
   mounted: function mounted() {
-    document.addEventListener("click", this.handleClickOutside);
+    document.addEventListener('click', this.handleClickOutside);
   },
   destroyed: function destroyed() {
-    document.removeEventListener("click", this.handleClickOutside);
+    document.removeEventListener('click', this.handleClickOutside);
   }
 });
 
@@ -1755,185 +1805,253 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "input-line row" },
-      [
-        _c("label", { staticClass: "input-label" }, [_vm._v("Группа")]),
-        _vm._v(" "),
-        _c("autocomplete", {
-          attrs: { suggestions: _vm.groups, loading: _vm.loading },
-          on: { input: _vm.searchDebounce },
-          model: {
-            value: _vm.selection,
-            callback: function($$v) {
-              _vm.selection = $$v
-            },
-            expression: "selection"
+  return _c(
+    "div",
+    [
+      _c(
+        "transition",
+        {
+          attrs: {
+            "enter-active-class": "animated zoomInDown",
+            "leave-active-class": "animated zoomOutUp"
           }
-        })
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "table-wrapper" }, [
-      _c("div", { staticClass: "table-header d-flex align-items-center" }, [
-        _c("div", { staticClass: "input-line row" }, [
-          _c("label", { staticClass: "input-label" }, [
-            _vm._v("Кол-во студентов")
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c("input", {
+        },
+        [
+          _c(
+            "div",
+            {
               directives: [
                 {
-                  name: "model",
-                  rawName: "v-model.number",
-                  value: _vm.count,
-                  expression: "count",
-                  modifiers: { number: true }
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.openAlert,
+                  expression: "openAlert"
                 }
               ],
-              staticClass: "input square transparent",
-              attrs: { type: "text" },
-              domProps: { value: _vm.count },
-              on: {
-                keypress: _vm.validateKey,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+              staticClass: "alert --left",
+              class: [_vm.status ? "--success" : "--danger"]
+            },
+            [
+              _c("div", { staticClass: "alert__icon" }, [
+                _c("span", { staticClass: "mdi mdi-check" })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "alert__text" }, [
+                !_vm.status
+                  ? _c(
+                      "ul",
+                      _vm._l(_vm.errors, function(error, i) {
+                        return _c(
+                          "li",
+                          { key: i },
+                          _vm._l(error, function(e, idx) {
+                            return _c("span", { key: idx }, [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(e) +
+                                  "\n                        "
+                              )
+                            ])
+                          }),
+                          0
+                        )
+                      }),
+                      0
+                    )
+                  : _c("span", [
+                      _vm._v(
+                        "\n                     Студенты успешно добавлены!\n                "
+                      )
+                    ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "input-line row" },
+        [
+          _c("label", { staticClass: "input-label" }, [_vm._v("Группа")]),
+          _vm._v(" "),
+          _c("autocomplete", {
+            attrs: { suggestions: _vm.groups, loading: _vm.loading },
+            on: { input: _vm.searchDebounce },
+            model: {
+              value: _vm.selectionGroup,
+              callback: function($$v) {
+                _vm.selectionGroup = $$v
+              },
+              expression: "selectionGroup"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "table-wrapper" }, [
+        _c("div", { staticClass: "table-header d-flex align-items-center" }, [
+          _c("div", { staticClass: "input-line row" }, [
+            _c("label", { staticClass: "input-label" }, [
+              _vm._v("Кол-во студентов")
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model.number",
+                    value: _vm.count,
+                    expression: "count",
+                    modifiers: { number: true }
                   }
-                  _vm.count = _vm._n($event.target.value)
-                },
-                blur: function($event) {
-                  return _vm.$forceUpdate()
+                ],
+                staticClass: "input square transparent",
+                attrs: { type: "text" },
+                domProps: { value: _vm.count },
+                on: {
+                  keypress: _vm.validateKey,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.count = _vm._n($event.target.value)
+                  },
+                  blur: function($event) {
+                    return _vm.$forceUpdate()
+                  }
+                }
+              }),
+              _vm._v(" "),
+              !_vm.$v.count.maxValue
+                ? _c("span", { staticClass: "invalid-feedback" }, [
+                    _vm._v(
+                      "Максимум " + _vm._s(_vm.$v.count.$params.maxValue.max)
+                    )
+                  ])
+                : _vm._e()
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "spacer" }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn--rounded btn-secondary",
+              attrs: { type: "button", disabled: _vm.$v.count.$invalid },
+              on: { click: _vm.generateStudents }
+            },
+            [_c("span", { staticClass: "mdi mdi-plus" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn--rounded btn-danger",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  _vm.data = []
                 }
               }
-            }),
-            _vm._v(" "),
-            !_vm.$v.count.maxValue
-              ? _c("span", { staticClass: "invalid-feedback" }, [
-                  _vm._v(
-                    "Максимум " + _vm._s(_vm.$v.count.$params.maxValue.max)
-                  )
-                ])
-              : _vm._e()
+            },
+            [_c("span", { staticClass: "mdi mdi-delete-forever" })]
+          ),
+          _vm._v(" "),
+          _c("hr", { staticClass: "v-divider mx-1" }),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn--rounded btn-primary-outline",
+              attrs: {
+                type: "button",
+                disabled:
+                  _vm.data.length === 0 ||
+                  _vm.$v.$invalid ||
+                  _vm.selectionGroup.id.length === 0
+              },
+              on: { click: _vm.sendStudents }
+            },
+            [_c("span", { staticClass: "mdi mdi-account-edit-outline" })]
+          ),
+          _vm._v(" "),
+          _c("span", { staticClass: "text-danger" }, [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.data.length) +
+                " / " +
+                _vm._s(_vm.maxCount) +
+                "\n            "
+            )
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "spacer" }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn--rounded btn-secondary",
-            attrs: { type: "button", disabled: _vm.$v.count.$invalid },
-            on: { click: _vm.generateStudents }
-          },
-          [_c("span", { staticClass: "mdi mdi-plus" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn--rounded btn-danger",
-            attrs: { type: "button" },
-            on: {
-              click: function($event) {
-                _vm.data = []
-              }
-            }
-          },
-          [_c("span", { staticClass: "mdi mdi-delete-forever" })]
-        ),
-        _vm._v(" "),
-        _c("hr", { staticClass: "v-divider mx-1" }),
-        _vm._v(" "),
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn--rounded btn-primary-outline",
-            attrs: {
-              type: "button",
-              disabled: _vm.data.length === 0 || _vm.$v.$invalid
-            },
-            on: { click: _vm.sendStudents }
-          },
-          [_c("span", { staticClass: "mdi mdi-account-edit-outline" })]
-        ),
-        _vm._v(" "),
-        _c("span", { staticClass: "text-danger" }, [
-          _vm._v(
-            "\n                " +
-              _vm._s(_vm.data.length) +
-              " / " +
-              _vm._s(_vm.maxCount) +
-              "\n            "
+        _c("table", { staticClass: "table" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.data, function(s, i) {
+              return _c("tr", { key: i }, [
+                _c("td", [_vm._v(_vm._s(i + 1))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: s.email,
+                        expression: "s.email"
+                      }
+                    ],
+                    staticClass: "input default",
+                    class: { invalid: _vm.$v.data.$each[i].email.$invalid },
+                    attrs: { type: "text" },
+                    domProps: { value: s.email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(s, "email", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(s.login_code))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn--rounded btn-warning-outline",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.removeStudent(i)
+                        }
+                      }
+                    },
+                    [_c("span", { staticClass: "mdi mdi-delete-forever" })]
+                  )
+                ])
+              ])
+            }),
+            0
           )
         ])
-      ]),
-      _vm._v(" "),
-      _c("table", { staticClass: "table" }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.data, function(s, i) {
-            return _c("tr", { key: i }, [
-              _c("td", [_vm._v(_vm._s(i + 1))]),
-              _vm._v(" "),
-              _c("td", [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: s.email,
-                      expression: "s.email"
-                    }
-                  ],
-                  staticClass: "input default",
-                  class: { invalid: _vm.$v.data.$each[i].email.$invalid },
-                  attrs: { type: "text" },
-                  domProps: { value: s.email },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(s, "email", $event.target.value)
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(s.code))]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn--rounded btn-warning-outline",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.removeStudent(i)
-                      }
-                    }
-                  },
-                  [_c("span", { staticClass: "mdi mdi-delete-forever" })]
-                )
-              ])
-            ])
-          }),
-          0
-        )
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -1993,7 +2111,7 @@ var render = function() {
     _c("input", {
       staticClass: "input default",
       attrs: { type: "text" },
-      domProps: { value: _vm.value },
+      domProps: { value: _vm.selection.group },
       on: {
         input: function($event) {
           return _vm.updateValue($event.target.value)
@@ -2081,7 +2199,7 @@ var render = function() {
                   class: { active: _vm.isActive(index) },
                   on: {
                     click: function($event) {
-                      return _vm.suggestionClick(index)
+                      return _vm.suggestionClick(suggestion)
                     }
                   }
                 },

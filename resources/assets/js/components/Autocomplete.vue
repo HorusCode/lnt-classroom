@@ -1,28 +1,28 @@
 <template>
 
-        <div class="input-group">
-            <span class="mdi mdi-search-web pos-left"/>
-            <input class="input default" type="text" :value="value" @input="updateValue($event.target.value)"
-                   @blur="open = openSuggestion"
-                   @keydown.enter='enter'
-                   @keydown.down='down'
-                   @keydown.up='up'>
-            <ul class="dropdown-menu" v-if="open">
-                <li class="dropdown-menu__item disable" v-show="loading">
-                    <div class="d-flex centered-items">
-                        <div class="spinner spinner-3"></div>
-                    </div>
-                </li>
-                <li class="dropdown-menu__item disable" v-show="isEmpty && !loading">
-                    Ничего не найдено
-                </li>
-                <li class="dropdown-menu__item" v-for="(suggestion, index) in matches"
-                    v-bind:class="{'active': isActive(index)}"
-                    @click="suggestionClick(index)">
-                    {{ suggestion.group }}
-                </li>
-            </ul>
-        </div>
+    <div class="input-group">
+        <span class="mdi mdi-search-web pos-left"/>
+        <input class="input default" type="text" :value="selection.group" @input="updateValue($event.target.value)"
+               @blur="open = openSuggestion"
+               @keydown.enter='enter'
+               @keydown.down='down'
+               @keydown.up='up'>
+        <ul class="dropdown-menu" v-if="open">
+            <li class="dropdown-menu__item disable" v-show="loading">
+                <div class="d-flex centered-items">
+                    <div class="spinner spinner-3"></div>
+                </div>
+            </li>
+            <li class="dropdown-menu__item disable" v-show="isEmpty && !loading">
+                Ничего не найдено
+            </li>
+            <li class="dropdown-menu__item" v-for="(suggestion, index) in matches"
+                v-bind:class="{'active': isActive(index)}"
+                @click="suggestionClick(suggestion)">
+                {{ suggestion.group }}
+            </li>
+        </ul>
+    </div>
 
 </template>
 
@@ -30,10 +30,6 @@
   export default {
     name: 'Autocomplete',
     props: {
-      value: {
-        type: String,
-        required: true,
-      },
       suggestions: {
         type: Array,
         required: true,
@@ -41,46 +37,49 @@
       loading: {
         type: Boolean,
         required: false,
-        default: false
-      }
+        default: false,
+      },
     },
     data() {
       return {
         open: false,
         current: 0,
-        selection: ''
+        selection: {
+          id: '',
+          group: '',
+        },
       };
     },
     computed: {
       // Filtering the suggestion based on the input
       matches() {
         return this.suggestions.filter((obj) => {
-          return obj.group.toLowerCase().indexOf(this.value.toLowerCase()) >= 0;
+          return obj.group.toLowerCase().indexOf(this.selection.group.toLowerCase()) >= 0;
         });
       },
 
-      openSuggestion () {
-        return this.selection !== '' &&
+      openSuggestion() {
+        return this.selection.group !== '' &&
             this.matches.length !== 0 &&
-            this.open === true
+            this.open === true;
       },
 
       isEmpty() {
         return this.matches.length === 0;
-      }
+      },
     },
     methods: {
       updateValue: function(value) {
-        this.selection = value;
+        this.selection.group = value;
         if (this.open === false) {
           this.open = true;
           this.current = 0;
         }
-        this.$emit('input', value);
+        this.$emit('input', this.selection);
       },
       // When enter pressed on the input
       enter() {
-        this.$emit('input', this.matches[this.current].group);
+        this.$emit('input', this.matches[this.current]);
         this.open = false;
       },
       // When up pressed while suggestions are open
@@ -106,17 +105,18 @@
         return index === this.current;
       },
       // When one of the suggestion is clicked
-      suggestionClick(index) {
-        this.$emit('input', this.matches[index].group);
+      suggestionClick(suggestion) {
+        this.selection = suggestion;
+        this.$emit('input', suggestion);
         this.open = false;
       },
     },
     mounted() {
-      document.addEventListener("click", this.handleClickOutside);
+      document.addEventListener('click', this.handleClickOutside);
     },
     destroyed() {
-      document.removeEventListener("click", this.handleClickOutside);
-    }
+      document.removeEventListener('click', this.handleClickOutside);
+    },
   };
 </script>
 

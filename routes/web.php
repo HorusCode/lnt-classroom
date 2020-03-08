@@ -18,8 +18,9 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 
 Route::group(['middleware' => ['auth', 'role:teacher']], function () {
-    Route::get('/teacher', 'Teacher\TeacherController@index')->name('t-index');
-    Route::get('/add-student', 'Teacher\TeacherController@addStudent')->name('t-add-student');
+    Route::get('/teacher', 'Teacher\TeacherController@index')->name('teacher.index');
+    Route::get('/add-student', 'Teacher\TeacherController@addStudents')->name('teacher.add-students');
+    Route::get('/view-students', 'Teacher\TeacherController@viewStudents')->name('teacher.view-students');
 });
 
 Route::group(['middleware' => ['auth', 'role:student']], function () {

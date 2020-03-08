@@ -11,8 +11,12 @@ class TeacherController extends Controller
     {
         return view('pages.teacher.index');
     }
-    public function addStudent()
+    public function addStudents()
     {
         return view('pages.add_human');
+    }
+    public function viewStudents()
+    {
+        return view('pages.all_human');
     }
 }

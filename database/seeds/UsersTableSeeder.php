@@ -18,9 +18,8 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'student',
                 'patronymic' => 'student',
                 'phone' => '89061220846',
-                'login' => 'student',
                 'email' => 'student@mail.ru',
-                'role_id' => 2,
+                'role_id' => 1,
                 'password' => Hash::make('1234')
             ],
             [
@@ -28,9 +27,8 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'teacher',
                 'patronymic' => 'teacher',
                 'phone' => '89061220846',
-                'login' => 'teacher',
                 'email' => 'teacher@mail.ru',
-                'role_id' => 1,
+                'role_id' => 2,
                 'password' => Hash::make('1234')
             ],
             [
@@ -38,7 +36,6 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'admin',
                 'patronymic' => 'admin',
                 'phone' => '89061220846',
-                'login' => 'admin',
                 'email' => 'admin@mail.ru',
                 'role_id' => 3,
                 'password' => Hash::make('1234')
