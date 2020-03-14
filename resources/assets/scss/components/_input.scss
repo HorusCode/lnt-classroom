@@ -88,3 +88,10 @@
 .valid-feedback {
   @extend .text-primary
 }
+
+.txt-full {
+  grid-column: 1 / -1;
+  padding: 7px;
+  border: 1px solid $primary;
+  margin-bottom: $margin-gap;
+}

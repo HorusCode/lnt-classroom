@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AddStudentsRequest;
-use App\Models\Role;
-use App\Models\Student;
-use App\Models\User;
-use Carbon\Carbon;
+use App\Models\Testing;
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
+
+class TestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,13 +16,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $data = Student::with(['user:id,firstname,lastname,patronymic,email','group:id,group'])->get();
-        $arr = $data->map(function ($item, $key) {
-            $array = $item->user->toArray();
-            $array['group']= $item->group->group;
-            return  $array;
-        }) ;
-        return response()->json($arr);
+        return response()->json(Testing::all());
     }
 
     /**
@@ -41,25 +32,12 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param AddStudentsRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(AddStudentsRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->data;
-        $studentRole = Role::whereName('student')->first()->id;
-        $status = false;
-        foreach ($data as $arr) {
-            $arr['role_id'] = $studentRole;
-            $id = User::create($arr)->id;
-            $status = Student::insert([
-                'user_id' => $id,
-                'group_id' => $request->group,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
-        }
-        return  response()->json(['status' => $status]);
+        //
     }
 
     /**

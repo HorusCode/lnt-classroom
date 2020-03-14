@@ -8,7 +8,7 @@
                  :class="[status ? '--success' : '--danger']"
             >
                 <div class="alert__icon">
-                    <span class="mdi mdi-check"></span>
+                    <span class="mdi" :class="[status ? 'mdi-alert-circle-check-outline' : 'mdi-alert-rhombus-outline']"></span>
                 </div>
                 <div class="alert__text">
                     <ul v-if="!status">
@@ -176,12 +176,13 @@
           group: this.selectionGroup.id,
           data: this.data,
         }).then(response => {
-          this.status = response.data.status;
+          this.status = true;
           this.openAlert = true;
           _.delay(() => {
             this.openAlert = false;
           }, 4000);
         }).catch(error => {
+          this.status = false;
           this.errors = error.response.data.errors;
           this.openAlert = true;
           _.delay(() => {

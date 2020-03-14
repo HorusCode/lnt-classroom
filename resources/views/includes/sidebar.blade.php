@@ -23,12 +23,12 @@
                         $route = Route::currentRouteName();
                     @endphp
                     <li class="submenu__item">
-                        <a class="{{ $route === 't-add-student' ? 'active' : ''}}"
-                           href="{{ route('t-add-student') }}">Добавить</a>
+                        <a class="{{ $route === 'teacher.add-students' ? 'active' : ''}}"
+                           href="{{ route('teacher.add-students') }}">Добавить</a>
                     </li>
                     <li class="submenu__item">
-                        <a class="{{ $route === '' ? 'active' : '' }}"
-                           href="">Просмотреть</a>
+                        <a class="{{ $route === 'teacher.view-student' ? 'active' : '' }}"
+                           href="{{ route('teacher.view-students') }}">Просмотреть</a>
                     </li>
                 </ul>
             </li>
@@ -57,6 +57,12 @@
                            href="">Просмотреть</a>
                     </li>
                 </ul>
+            </li>
+            <li class="vertical-list__item --active">
+                <a href="{{ route('test.tests') }}" aria-expanded="true">
+                    <span class="mdi mdi-checkbox-multiple-blank pos-left-null"></span>
+                    Тесты
+                </a>
             </li>
             <li class="vertical-list__item">
                 <a href="#" aria-expanded="true">

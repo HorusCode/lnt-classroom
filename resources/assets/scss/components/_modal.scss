@@ -2,11 +2,11 @@
   display: block;
   position: fixed;
   top: 0;
-  bottom: 0;
   left: 0;
-  right: 0;
-  overflow: hidden;
-  transform: scale(0);
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  z-index: 20;
   &.scaleUp {
     transform: scale(1);
     .modal-container {
@@ -27,21 +27,37 @@
       }
     }
   }
+  &.slideDownLarge {
+    animation: slideDownLarge 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    &.out {
+      animation: slideUpLarge 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    }
+  }
+
+
+  &.full-page {
+    background-color: white;
+    overflow-x: hidden;
+    min-height: inherit;
+    height: 100%;
+    .modal__card {
+      width: 100%;
+      min-height: 100%;
+      max-width: none;
+      justify-content: start;
+    }
+  }
 }
 
-.modal-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.87);
-}
+
 
 
 .modal__header, .modal__content {
   padding: 2rem;
 }
+
+
+
 
 .modal__card {
   display: flex;
@@ -55,16 +71,7 @@
 .close {
   cursor: pointer;
   color: $muted;
-  width: 50px;
-  height: 50px;
-  text-align: center;
-  line-height: 50px;
   position: absolute;
-  right: 0;
-  font-size: 40px;
-
-  span {
-    transform: rotate(45deg);
-    display: block;
-  }
+  right: 2rem;
+  top: 3rem;
 }

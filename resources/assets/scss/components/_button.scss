@@ -110,14 +110,15 @@
   }
 
 
-  &[disabled='disabled'] {
-    background-color: #d5d5d5;
+  &:disabled {
+    background-color: $muted;
+    opacity: .3;
     transition: none;
     cursor: default;
-    opacity: .61;
     &:hover {
-      background-color: #d5d5d5;
+      background-color: $muted;
     }
+
   }
 
   &.is-small {
@@ -134,10 +135,13 @@
     width: 100%;
   }
 
-  &.btn--rounded {
+  &.ripple {
     border-radius: 50%;
     padding: 0.55rem .645rem;;
     letter-spacing: normal;
+  }
+  &.rounded {
+    border-radius: 25px;
   }
   &.width-1 {
     width: 9rem;

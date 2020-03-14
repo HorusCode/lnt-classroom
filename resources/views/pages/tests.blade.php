@@ -2,9 +2,9 @@
 
 @section('content')
     <header class="content__header">
-        <h1 class="text-title">Просмотр студентов</h1>
+        <h1 class="text-title">Тесты</h1>
     </header>
     <div class="content__body">
-        <view-student-table></view-student-table>
+        <tests></tests>
     </div>
 @endsection

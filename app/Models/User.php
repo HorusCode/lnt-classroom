@@ -32,7 +32,9 @@ class User extends Authenticatable
         'patronymic',
         'phone',
         'email',
-        'login'
+        'login',
+        'login_code',
+        'role_id'
     ];
 
     /**

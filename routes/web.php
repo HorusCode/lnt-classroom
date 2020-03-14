@@ -19,12 +19,15 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group(['middleware' => ['auth', 'role:teacher']], function () {
     Route::get('/teacher', 'Teacher\TeacherController@index')->name('teacher.index');
-    Route::get('/add-student', 'Teacher\TeacherController@addStudents')->name('teacher.add-students');
+    Route::get('/add-students', 'Teacher\TeacherController@addStudents')->name('teacher.add-students');
     Route::get('/view-students', 'Teacher\TeacherController@viewStudents')->name('teacher.view-students');
+    Route::get('/tests', 'TestController@tests')->name('test.tests');
 });
 
+
+
 Route::group(['middleware' => ['auth', 'role:student']], function () {
-    Route::get('/student', 'Student\StudentController@index')->name('s-index');
+    Route::get('/student', 'Student\StudentController@index')->name('student.index');
 });
 
 
