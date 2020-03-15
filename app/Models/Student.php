@@ -22,4 +22,9 @@ class Student extends Model
     {
         return $this->belongsTo(Group::class);
     }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
 }

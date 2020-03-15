@@ -11,4 +11,10 @@ class Testing extends Model
     protected $casts = [
         'questions' => 'array',
     ];
+
+    public function rates()
+    {
+        return $this->morphMany(Rating::class, 'work');
+    }
+
 }

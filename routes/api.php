@@ -26,4 +26,5 @@ Route::post('/login', 'Api\v1\LoginController@login');
 
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', 'Api\v1\LoginController@logout');
+    Route::resource('/ratings', 'Api\v1\RatingController');
 });

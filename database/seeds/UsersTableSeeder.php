@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -12,15 +13,40 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
     //Create 3 users for 3 roles: student(user), teacher(admin), admin(superadmin)
+        $roles = Role::all();
         $data = [
             [
-                'firstname' => 'student',
-                'lastname' => 'student',
-                'patronymic' => 'student',
+                'firstname' => 'student1',
+                'lastname' => 'student1',
+                'patronymic' => 'student1',
                 'phone' => '89061220846',
-                'email' => 'student@mail.ru',
-                'role_id' => 1,
-                'password' => Hash::make('1234')
+                'email' => 'student1@mail.ru',
+                'role_id' => $roles->where('name','=','student')->pluck('id')->first(),
+                'password' => Hash::make('1234'),
+                "created_at" => date('Y-m-d H:i:s'),
+                "updated_at" => date('Y-m-d H:i:s'),
+            ],
+            [
+                'firstname' => 'student2',
+                'lastname' => 'student2',
+                'patronymic' => 'student2',
+                'phone' => '89061220844',
+                'email' => 'student2@mail.ru',
+                'role_id' => $roles->where('name','=','student')->pluck('id')->first(),
+                'password' => Hash::make('1234'),
+                "created_at" => date('Y-m-d H:i:s'),
+                "updated_at" => date('Y-m-d H:i:s'),
+            ],
+            [
+                'firstname' => 'student3',
+                'lastname' => 'student3',
+                'patronymic' => 'student3',
+                'phone' => '89061220843',
+                'email' => 'student3@mail.ru',
+                'role_id' => $roles->where('name','=','student')->pluck('id')->first(),
+                'password' => Hash::make('1234'),
+                "created_at" => date('Y-m-d H:i:s'),
+                "updated_at" => date('Y-m-d H:i:s'),
             ],
             [
                 'firstname' => 'teacher',
@@ -28,8 +54,10 @@ class UsersTableSeeder extends Seeder
                 'patronymic' => 'teacher',
                 'phone' => '89061220846',
                 'email' => 'teacher@mail.ru',
-                'role_id' => 2,
-                'password' => Hash::make('1234')
+                'role_id' => $roles->where('name','=','teacher')->pluck('id')->first(),
+                'password' => Hash::make('1234'),
+                "created_at" => date('Y-m-d H:i:s'),
+                "updated_at" => date('Y-m-d H:i:s'),
             ],
             [
                 'firstname' => 'admin',
@@ -37,8 +65,10 @@ class UsersTableSeeder extends Seeder
                 'patronymic' => 'admin',
                 'phone' => '89061220846',
                 'email' => 'admin@mail.ru',
-                'role_id' => 3,
-                'password' => Hash::make('1234')
+                'role_id' => $roles->where('name','=','admin')->pluck('id')->first(),
+                'password' => Hash::make('1234'),
+                "created_at" => date('Y-m-d H:i:s'),
+                "updated_at" => date('Y-m-d H:i:s'),
             ]
         ];
 
