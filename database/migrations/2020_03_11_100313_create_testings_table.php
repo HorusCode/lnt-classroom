@@ -17,8 +17,8 @@ class CreateTestingsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->longText('questions')->default('[]');
-            $table->bigInteger('user_id')->index()->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')
+            $table->bigInteger('creator_id')->index()->unsigned();
+            $table->foreign('creator_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
