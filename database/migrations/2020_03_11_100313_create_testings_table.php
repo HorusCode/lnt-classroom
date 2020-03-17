@@ -16,6 +16,7 @@ class CreateTestingsTable extends Migration
         Schema::create('testings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
+            $table->string('time', 8)->default('00:00:00');
             $table->longText('questions')->default('[]');
             $table->bigInteger('creator_id')->index()->unsigned();
             $table->foreign('creator_id')->references('id')->on('users')

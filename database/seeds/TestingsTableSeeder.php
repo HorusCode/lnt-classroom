@@ -19,21 +19,21 @@ class TestingsTableSeeder extends Seeder
             [
                 'title' => 'Тест 1',
                 'creator_id' => $creatorId,
-                'questions' => '[{name:"Вопрос 1",answers:[{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:true},{text:"Answer Text1",answer:true}]},{name:"Вопрос 2",answers:[{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:true},{text:"Answer Text1",answer:true}]},{name:"Вопрос 3",answers:[{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:true},{text:"Answer Text1",answer:true}]}]',
+                'questions' => '[{"name":"Вопрос 1","answers":[{"text":"Answer Text1","answer":false},{"text":"Answer Text1","answer":false}]}]',
                 "created_at" => date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
             ],
             [
                 'title' => 'Тест 2',
                 'creator_id' => $creatorId,
-                'questions' => '[{name:"Вопрос 1",answers:[{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:true},{text:"Answer Text1",answer:true}]},{name:"Вопрос 2",answers:[{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:true},{text:"Answer Text1",answer:true}]},{name:"Вопрос 3",answers:[{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:true},{text:"Answer Text1",answer:true}]}]',
+                'questions' => '[{"name":"Вопрос 1","answers":[{"text":"Answer Text1","answer":false},{"text":"Answer Text1","answer":false}]}]',
                 "created_at" => date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
             ],
             [
                 'title' => 'Тест 3',
                 'creator_id' => $creatorId,
-                'questions' => '[{name:"Вопрос 1",answers:[{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:true},{text:"Answer Text1",answer:true}]},{name:"Вопрос 2",answers:[{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:true},{text:"Answer Text1",answer:true}]},{name:"Вопрос 3",answers:[{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:false},{text:"Answer Text1",answer:true},{text:"Answer Text1",answer:true}]}]',
+                'questions' => '[{"name":"Вопрос 1","answers":[{"text":"Answer Text1","answer":false},{"text":"Answer Text1","answer":false}]}]',
                 "created_at" => date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
             ]

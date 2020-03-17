@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Resources\GroupsStudentResource;
 use App\Models\Group;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -87,6 +88,12 @@ class GroupController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function grouped()
+    {
+        return GroupsStudentResource::collection($this->group->all());
     }
 
 

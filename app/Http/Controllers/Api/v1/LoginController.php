@@ -29,6 +29,11 @@ class LoginController extends Controller
             ], 401);
         }
 
+        $this->sendDataUser();
+    }
+
+    public function sendDataUser()
+    {
         $user = auth()->user();
 
         $token = $user->createToken(config('app.name'));

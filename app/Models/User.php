@@ -64,7 +64,10 @@ class User extends Authenticatable
         return $this->hasOne(Student::class);
     }
 
-
+    public function tests()
+    {
+        return $this->hasMany(Testing::class, 'creator_id');
+    }
 
 
 
