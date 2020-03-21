@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\Filemanager;
+namespace App\Filemanager;
 
 
 use App\Http\Repositories\FilemanagerRepository;
