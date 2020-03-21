@@ -259,7 +259,7 @@ class FilemanagerItem
         $size = ['B', 'KB', 'MB', 'GB', 'TB'];
         $factor = floor((strlen($bytes) - 1) / 3);
 
-        return sprintf("%.{$decimals}f %s", $bytes / pow(1025, $factor), @$size[$factor]);
+        return sprintf("%.{$decimals}f %s", $bytes / pow(1024, $factor), @$size[$factor]);
     }
 
 
