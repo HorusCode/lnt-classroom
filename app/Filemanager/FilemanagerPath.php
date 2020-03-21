@@ -11,19 +11,43 @@ use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 
+/**
+ * Class FilemanagerPath
+ * @package App\Filemanager
+ */
 class FilemanagerPath
 {
+    /**
+     * @var
+     */
     private $working_dir;
+    /**
+     * @var
+     */
     private $item_name;
+    /**
+     * @var bool
+     */
     private $is_thumb = false;
 
+    /**
+     * @var Filemanager
+     */
     private $helper;
 
+    /**
+     * FilemanagerPath constructor.
+     * @param Filemanager|null $filemanager
+     */
     public function __construct(Filemanager $filemanager = null)
     {
         $this->helper = $filemanager;
     }
 
+    /**
+     * @param $name
+     * @return \App\Http\Repositories\FilemanagerRepository
+     */
     public function __get($name)
     {
         if($name === 'storage') {
@@ -31,11 +55,20 @@ class FilemanagerPath
         }
     }
 
+    /**
+     * @param $func_name
+     * @param $arguments
+     * @return mixed
+     */
     public function __call($func_name, $arguments)
     {
         return $this->storage->$func_name(...$arguments);
     }
 
+    /**
+     * @param $working_dir
+     * @return $this
+     */
     public function dir($working_dir)
     {
         $this->working_dir = $working_dir;
@@ -43,6 +76,10 @@ class FilemanagerPath
     }
 
 
+    /**
+     * @param bool $is_thumb
+     * @return $this
+     */
     public function thumb($is_thumb = true)
     {
         $this->is_thumb = $is_thumb;
@@ -50,17 +87,28 @@ class FilemanagerPath
     }
 
 
+    /**
+     * @param $item_name
+     * @return $this
+     */
     public function setName($item_name)
     {
         $this->item_name = $item_name;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getName()
     {
         return $this->item_name;
     }
 
+    /**
+     * @param string $type
+     * @return string|string[]
+     */
     public function path($type = 'storage')
     {
         switch ($type) {
@@ -78,23 +126,37 @@ class FilemanagerPath
         }
     }
 
+    /**
+     * @param $path
+     * @return string|string[]
+     */
     public function translateToFilemanagerPath($path)
     {
         return str_replace($this->helper->ds(), Filemanager::DS, $path);
     }
 
 
+    /**
+     * @param $path
+     * @return string|string[]
+     */
     public function translateToOSPath($path)
     {
         return str_replace(Filemanager::DS, $this->helper->ds(), $path);
     }
 
+    /**
+     * @return mixed
+     */
     public function url()
     {
         return $this->storage->url($this->path('url'));
     }
 
 
+    /**
+     * @return mixed
+     */
     public function folders()
     {
         $all_folders = array_map(function ($dir_path) {
@@ -108,6 +170,9 @@ class FilemanagerPath
         return $this->sortByColumn($folders);
     }
 
+    /**
+     * @return mixed
+     */
     public function files()
     {
         $files = array_map(function ($file_path) {
@@ -117,6 +182,10 @@ class FilemanagerPath
         return $this->sortByColumn($files);
     }
 
+    /**
+     * @param $item_path
+     * @return FilemanagerItem|mixed
+     */
     public function pretty($item_path)
     {
         return Container::getInstance()->makeWith(FilemanagerItem::class, [
@@ -125,6 +194,9 @@ class FilemanagerPath
         ]);
     }
 
+    /**
+     * @return mixed
+     */
     public function delete()
     {
         if($this->isDirectory()) {
@@ -134,6 +206,9 @@ class FilemanagerPath
         }
     }
 
+    /**
+     * @return bool
+     */
     public function createFolder()
     {
         if($this->storage->exists($this)) {
@@ -143,6 +218,9 @@ class FilemanagerPath
         $this->storage->makeDirectory(0777, true, true);
     }
 
+    /**
+     * @return bool
+     */
     public function isDirectory()
     {
         $working_dir = $this->path('working_dir');
@@ -155,11 +233,18 @@ class FilemanagerPath
         return in_array($this->path('url'), $parent_dirs);
     }
 
+    /**
+     * @return bool
+     */
     public function directoryIsEmpty()
     {
         return count($this->storage->allFiles()) === 0;
     }
 
+    /**
+     * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function normalizeWorkingDir()
     {
         $path = $this->working_dir
@@ -179,6 +264,10 @@ class FilemanagerPath
         return $path;
     }
 
+    /**
+     * @param $arr_items
+     * @return mixed
+     */
     public function sortByColumn($arr_items)
     {
         $sort_by = $this->helper->input('sort_type');
@@ -195,11 +284,21 @@ class FilemanagerPath
         return $arr_items;
     }
 
+    /**
+     * @param $error_type
+     * @param $variables
+     * @throws \Exception
+     */
     public function error($error_type, $variables)
     {
         return $this->helper->error($error_type, $variables);
     }
 
+    /**
+     * @param $file
+     * @return bool|false|mixed|string|string[]|null
+     * @throws \Exception
+     */
     public function upload($file)
     {
         $this->uploadValidator($file);
@@ -219,6 +318,10 @@ class FilemanagerPath
         return $new_file_name;
     }
 
+    /**
+     * @param $file
+     * @return string
+     */
     public function uploadValidator($file)
     {
         $arr['file'] = $file;
@@ -247,6 +350,10 @@ class FilemanagerPath
     }
 
 
+    /**
+     * @param $file
+     * @return bool|false|string|string[]|null
+     */
     private function getNewName($file)
     {
         $new_file_name = $this->helper
@@ -265,6 +372,11 @@ class FilemanagerPath
         return $new_file_name;
     }
 
+    /**
+     * @param $file
+     * @param $new_file_name
+     * @return mixed
+     */
     private function saveFile($file, $new_file_name)
     {
         $this->setName($new_file_name)->storage->save($file);
@@ -274,6 +386,9 @@ class FilemanagerPath
         return $new_file_name;
     }
 
+    /**
+     * @param $file_name
+     */
     public function makeThumbnail($file_name)
     {
         $original_image = $this->pretty($file_name);
