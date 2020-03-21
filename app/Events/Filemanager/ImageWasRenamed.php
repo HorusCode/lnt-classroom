@@ -2,35 +2,35 @@
 
 namespace App\Events\Filemanager;
 
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Queue\SerializesModels;
+
 
 class ImageWasRenamed
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    private $old_path;
+    private $new_path;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param $old_path
+     * @param $new_path
      */
-    public function __construct()
+    public function __construct($old_path, $new_path)
     {
-        //
+        $this->old_path = $old_path;
+        $this->new_path = $new_path;
     }
 
     /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
+     * @return string
      */
-    public function broadcastOn()
+    public function oldPath()
     {
-        return new PrivateChannel('channel-name');
+        return $this->old_path;
+    }
+
+    public function newPath()
+    {
+        return $this->new_path;
     }
 }
