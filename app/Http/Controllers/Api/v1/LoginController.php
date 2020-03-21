@@ -29,11 +29,6 @@ class LoginController extends Controller
             ], 401);
         }
 
-        $this->sendDataUser();
-    }
-
-    public function sendDataUser()
-    {
         $user = auth()->user();
 
         $token = $user->createToken(config('app.name'));
@@ -41,6 +36,16 @@ class LoginController extends Controller
             'token_type' => 'Bearer',
             'token' => $token->accessToken,
             'expires_at' => $token->token->expires_at,
+            'user' => $user->toArray(),
+            'role' => $user->role['name']
+        ]);
+    }
+
+    public function sendDataUser()
+    {
+        $user = auth()->user();
+
+        return response()->json([
             'user' => $user->toArray(),
             'role' => $user->role['name']
         ]);

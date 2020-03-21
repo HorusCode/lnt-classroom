@@ -29,7 +29,7 @@ Route::post('/login', 'Api\v1\LoginController@login');
 
 Route::middleware('auth:api')->group(function () {
     Route::get('/user/me', 'Api\v1\LoginController@sendDataUser');
-    Route::post('/logout', 'Api\v1\LoginController@logout');
+    Route::get('/logout', 'Api\v1\LoginController@logout');
     Route::apiResource('/ratings', 'Api\v1\RatingController');
     Route::post('/upload/image', 'Api\v1\UploadController@image');
     Route::delete('/delete/{type}/{name}', 'Api\v1\UploadController@deleteFile');
