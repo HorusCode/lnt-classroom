@@ -4,6 +4,7 @@
 namespace App\Filemanager;
 
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Str;
 
 /**
@@ -37,7 +38,7 @@ class FilemanagerItem
      */
     public function __construct(FilemanagerPath $filemanager, Filemanager $helper)
     {
-        $this->filemanager = $filemanager;
+        $this->filemanager = $filemanager->thumb(false);
         $this->helper = $helper;
     }
 
@@ -78,6 +79,7 @@ class FilemanagerItem
     /**
      * @param string $type
      * @return string|string[]
+     * @throws BindingResolutionException
      */
     public function path($type = 'absolute')
     {

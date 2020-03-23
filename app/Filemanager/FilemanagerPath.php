@@ -8,13 +8,11 @@ use App\Events\Filemanager\ImageIsUploading;
 use App\Events\Filemanager\ImageWasUploaded;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Container\Container;
-use Illuminate\Support\Facades\Validator;
-use Intervention\Image\Facades\Image;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Validator;
+use Image;
 
-/**
- * Class FilemanagerPath
- * @package App\Filemanager
- */
+
 class FilemanagerPath
 {
     /**
@@ -35,25 +33,19 @@ class FilemanagerPath
      */
     private $helper;
 
+    private $storage;
+
     /**
      * FilemanagerPath constructor.
      * @param Filemanager|null $filemanager
+     * @throws BindingResolutionException
      */
     public function __construct(Filemanager $filemanager = null)
     {
         $this->helper = $filemanager;
+        $this->storage = $this->helper->getStorage($this->path('url'));
     }
 
-    /**
-     * @param $name
-     * @return \App\Http\Repositories\FilemanagerRepository
-     */
-    public function __get($name)
-    {
-        if($name === 'storage') {
-            return $this->helper->getStorage($this->path('url'));
-        }
-    }
 
     /**
      * @param $func_name
@@ -108,6 +100,7 @@ class FilemanagerPath
     /**
      * @param string $type
      * @return string|string[]
+     * @throws BindingResolutionException
      */
     public function path($type = 'storage')
     {
@@ -116,13 +109,13 @@ class FilemanagerPath
                 return $this->translateToFilemanagerPath($this->normalizeWorkingDir());
                 break;
             case 'url':
-                return $this->helper->getCategoryName().$this->path('working_dir');
+                return $this->helper->getCategoryName() . $this->path('working_dir');
                 break;
             case 'storage':
                 return $this->translateToOSPath($this->path('url'));
                 break;
             default:
-                return $this->storage->rootPath().$this->path('storage');
+                return $this->storage->rootPath() . $this->path('storage');
         }
     }
 
@@ -147,6 +140,7 @@ class FilemanagerPath
 
     /**
      * @return mixed
+     * @throws BindingResolutionException
      */
     public function url()
     {
@@ -163,7 +157,7 @@ class FilemanagerPath
             return $this->pretty($dir_path);
         }, $this->storage->directories());
 
-        $folders = array_filter($all_folders, function($dir) {
+        $folders = array_filter($all_folders, function ($dir) {
             return $dir->name !== $this->helper->getThumbFolderName();
         });
 
@@ -190,7 +184,7 @@ class FilemanagerPath
     {
         return Container::getInstance()->makeWith(FilemanagerItem::class, [
             'filemanager' => (clone $this)->setName($this->helper->getNameFromPath($item_path)),
-            'helper' => $this-$this->helper
+            'helper' => $this - $this->helper
         ]);
     }
 
@@ -199,7 +193,7 @@ class FilemanagerPath
      */
     public function delete()
     {
-        if($this->isDirectory()) {
+        if ($this->isDirectory()) {
             return $this->storage->deleteDirectory();
         } else {
             return $this->storage->delete();
@@ -211,7 +205,7 @@ class FilemanagerPath
      */
     public function createFolder()
     {
-        if($this->storage->exists($this)) {
+        if ($this->storage->exists($this)) {
             return false;
         }
 
@@ -220,13 +214,14 @@ class FilemanagerPath
 
     /**
      * @return bool
+     * @throws BindingResolutionException
      */
     public function isDirectory()
     {
         $working_dir = $this->path('working_dir');
         $parent_dir = substr($working_dir, 0, strrpos($working_dir, '/'));
 
-        $parent_dirs = array_map(function($dir_path) {
+        $parent_dirs = array_map(function ($dir_path) {
             return app(static::class)->translateToFilemanagerPath($dir_path);
         }, app(static::class)->dir($parent_dir)->directories());
 
@@ -243,22 +238,20 @@ class FilemanagerPath
 
     /**
      * @return string
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     public function normalizeWorkingDir()
     {
         $path = $this->working_dir
             ?: $this->helper->input('working_dir')
-            ?: $this->helper->getRootFolder();
+                ?: $this->helper->getRootFolder();
 
-        if($this->is_thumb)
-        {
-            $path = rtrim($path, Filemanager::DS).Filemanager::DS.$this->helper->getThumbFolderName();
+        if ($this->is_thumb) {
+            $path = rtrim($path, Filemanager::DS) . Filemanager::DS . $this->helper->getThumbFolderName();
         }
 
-        if($this->getName())
-        {
-            $path = rtrim($path, Filemanager::DS).Filemanager::DS.$this->getName();
+        if ($this->getName()) {
+            $path = rtrim($path, Filemanager::DS) . Filemanager::DS . $this->getName();
         }
 
         return $path;
@@ -271,7 +264,7 @@ class FilemanagerPath
     public function sortByColumn($arr_items)
     {
         $sort_by = $this->helper->input('sort_type');
-        if(in_array($sort_by, ['name','time'])) {
+        if (in_array($sort_by, ['name', 'time'])) {
             $key_to_sort = $sort_by;
         } else {
             $key_to_sort = 'name';
@@ -291,7 +284,7 @@ class FilemanagerPath
      */
     public function error($error_type, $variables)
     {
-        return $this->helper->error($error_type, $variables);
+       $this->helper->error($error_type, $variables);
     }
 
     /**
@@ -310,7 +303,7 @@ class FilemanagerPath
             $new_file_name = $this->saveFile($file, $new_file_name);
         } catch (\Exception $exception) {
             \Log::info($exception);
-             $this->error('invalid');
+            $this->error('invalid');
         }
 
         event(new ImageWasUploaded($new_file_path));
@@ -326,23 +319,23 @@ class FilemanagerPath
     {
         $arr['file'] = $file;
 
-        if($this->helper->config('should_validate_size', false)) {
+        if ($this->helper->config('should_validate_size', false)) {
             $max_size = $this->helper->maxUploadSize();
         } else {
             $max_size = ini_get('upload_max_filesize');
         }
 
-        if($this->helper->config('should_validate_mime', false)) {
-            $mimes = "|mimes:".implode(",", $this->helper->availableMimeTypes());
+        if ($this->helper->config('should_validate_mime', false)) {
+            $mimes = "|mimes:" . implode(",", $this->helper->availableMimeTypes());
         } else {
             $mimes = "";
         }
 
         $validator = Validator::make($arr, [
-            'file' => "required|max:{$max_size}".$mimes,
+            'file' => "required|max:{$max_size}" . $mimes,
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             throw new ValidationException($validator);
         }
 
@@ -358,14 +351,14 @@ class FilemanagerPath
     {
         $new_file_name = $this->helper
             ->translateFromUtf8(trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
-        if($this->helper->config('rename_file') === true) {
+        if ($this->helper->config('rename_file') === true) {
             $new_file_name = uniqid();
-        } else if($this->helper->config('alphanumeric_filename') === true) {
+        } else if ($this->helper->config('alphanumeric_filename') === true) {
             $new_file_name = preg_replace('/[^A-Za-z0-9\-\']/', '_', $new_file_name);
         }
 
         $extension = $file->getClientOriginalExtenstion();
-        if($extension) {
+        if ($extension) {
             $new_file_name .= '.' . $extension;
         }
 

@@ -3,11 +3,12 @@
 
 namespace App\Filemanager;
 
-
 use App\Http\Repositories\FilemanagerRepository;
 use Illuminate\Contracts\Config\Repository as Config;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Str;
+
 
 /**
  * Class Filemanager
@@ -15,6 +16,7 @@ use Illuminate\Support\Str;
  */
 class Filemanager
 {
+
     /**
      *
      */
@@ -24,10 +26,12 @@ class Filemanager
      * @var Config
      */
     protected $config;
+
     /**
      * @var Request
      */
     protected $request;
+
 
     /**
      * Filemanager constructor.
@@ -40,6 +44,7 @@ class Filemanager
         $this->request = $request;
     }
 
+
     /**
      * @param $storage_path
      * @return FilemanagerRepository
@@ -48,6 +53,7 @@ class Filemanager
     {
         return new FilemanagerRepository($storage_path, $this);
     }
+
 
     /**
      * @param $key
@@ -58,6 +64,7 @@ class Filemanager
         return $this->translateFromUtf8($this->request->input($key));
     }
 
+
     /**
      * @param $key
      * @param null $default
@@ -67,6 +74,7 @@ class Filemanager
     {
         return $this->config->get('filemanager.'.$key, $default);
     }
+
 
     /**
      * @param $path
@@ -135,7 +143,7 @@ class Filemanager
 
     /**
      * @return mixed|string
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     public function getUserSlug()
     {
@@ -156,7 +164,7 @@ class Filemanager
     /**
      * @param null $type
      * @return string
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     public function getRootFolder($type = null)
     {

@@ -4,6 +4,8 @@
 namespace App\Http\Repositories;
 
 
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use League\Flysystem\Cached\CachedAdapter;
 /**
@@ -13,7 +15,7 @@ use League\Flysystem\Cached\CachedAdapter;
 class FilemanagerRepository
 {
     /**
-     * @var \Illuminate\Contracts\Filesystem\Filesystem|\Illuminate\Filesystem\FilesystemAdapter
+     * @var Filesystem|FilesystemAdapter
      */
     private $disk;
     /**
