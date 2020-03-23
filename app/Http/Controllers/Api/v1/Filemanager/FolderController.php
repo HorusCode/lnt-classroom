@@ -12,15 +12,7 @@ class FolderController extends FilemanagerController
             return $this->helper->allowFolderType($type);
         });
 
-        $root_folders = array_map(function ($type) use ($folder_types) {
-            $path = $this->filemanager->dir($this->helper->getRootFolder($type));
-            return (object)[
-                'name' => trans('filemanager.title-' . $type),
-                'url' => $path->path('working_dir'),
-                'children' => $path->folders(),
-                'has_next' => !($type == end($folder_types)),
-            ];
-        }, $folder_types);
+        $root_folders = $this->getFolldersOnType($folder_types);
 
         return response()->json(['root_folders' => $root_folders]);
     }
