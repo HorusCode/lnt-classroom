@@ -254,8 +254,8 @@ class FilemanagerPath
                 ?: $this->helper->getRootFolder();
 
         if ($this->is_thumb) {
-
             $path = rtrim($path, Filemanager::DS) . Filemanager::DS . $this->helper->getThumbFolderName();
+
         }
 
         if ($this->getName()) {

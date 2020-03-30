@@ -131,6 +131,7 @@ class FilemanagerItem
 
     /**
      * @return mixed|string|string[]
+     * @throws BindingResolutionException
      */
     public function url()
     {
@@ -163,15 +164,17 @@ class FilemanagerItem
 
     /**
      * @return mixed|string|null
+     * @throws BindingResolutionException
      */
     public function thumbUrl()
     {
-        if ($this->isDirectory()) {
+        /*if ($this->isDirectory()) {
             return asset('vendor/img/folder.png');
-        }
+        }*/
 
         if ($this->isImage()) {
-            return $this->filemanager->thumb($this->hasThumb())->url(true);
+
+            return $this->filemanager->thumb($this->hasThumb())->url();
         }
 
         return null;
@@ -217,7 +220,7 @@ class FilemanagerItem
             return false;
         }
 
-        if ($this->filemanager->thumb()->exists()) {
+        if (!$this->filemanager->thumb()) {
             return false;
         }
         return true;
