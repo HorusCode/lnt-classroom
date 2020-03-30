@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CreateDefaultFolder;
+use App\Http\Middleware\MultiUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -64,6 +66,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'createfolder' => \App\Http\Middleware\CreateDefaultFolder::class,
+        'multiuser' => \App\Http\Middleware\ MultiUser::class
     ];
 
     /**

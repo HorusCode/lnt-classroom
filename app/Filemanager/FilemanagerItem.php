@@ -5,7 +5,7 @@ namespace App\Filemanager;
 
 
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Support\Str;
+use Str;
 
 /**
  * Class FilemanagerItem
@@ -50,7 +50,7 @@ class FilemanagerItem
     {
         if (!array_key_exists($var_name, $this->attributes)) {
             $func_name = Str::camel($var_name);
-            $this->attributes[$var_name] = $this->$func_name;
+            $this->attributes[$var_name] = $this->$func_name();
         }
 
         return $this->attributes[$var_name];

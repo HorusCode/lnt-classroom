@@ -6,7 +6,7 @@ namespace App\Http\Repositories;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
-use Illuminate\Support\Facades\Storage;
+use Storage;
 use League\Flysystem\Cached\CachedAdapter;
 /**
  * Class FilemanagerRepository

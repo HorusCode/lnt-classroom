@@ -148,12 +148,12 @@ class Filemanager
     public function getUserSlug()
     {
         $config = $this->config('private_folder_name');
-
         if(is_callable($config)) {
             return call_user_func($config);
         }
 
         if(class_exists($config)) {
+
             return app()->make($config)->userField();
         }
 
@@ -174,9 +174,9 @@ class Filemanager
                 $type = 'user';
             }
         }
-
         if($type === 'user') {
             $folder = $this->getUserSlug();
+
         } else {
             $folder = $this->config('shared_folder_name');
         }
@@ -277,7 +277,7 @@ class Filemanager
      * @param $variables
      * @throws \Exception
      */
-    public function error($error_type, $variables)
+    public function error($error_type, $variables = [])
     {
         throw new \Exception(trans('filemanager.error-'.$error_type, $variables));
     }

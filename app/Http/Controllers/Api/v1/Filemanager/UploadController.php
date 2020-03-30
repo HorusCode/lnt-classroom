@@ -24,7 +24,7 @@ class UploadController extends FilemanagerController
 
         foreach (is_array($uploaded_files) ? $uploaded_files : [$uploaded_files] as $file) {
             try {
-                $new_filename = $this->filemanager->upload();
+                $new_filename = $this->filemanager->upload($file);
             } catch (\Exception $exception) {
                 Log::error($exception->getMessage(), [
                     'file' => $exception->getFile(),

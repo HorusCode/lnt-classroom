@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Filemanager\Filemanager;
 use Closure;
-use Illuminate\Support\Str;
+use Str;
 
 /**
  * Class MultiUser
@@ -45,9 +45,7 @@ class MultiUser
             } elseif (!$this->validDir($previous_dir)) {
                 $request->replace(compact('working_dir'));
             }
-
         }
-
         return $next($request);
     }
 

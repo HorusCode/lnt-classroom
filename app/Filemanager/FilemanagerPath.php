@@ -33,7 +33,6 @@ class FilemanagerPath
      */
     private $helper;
 
-    private $storage;
 
     /**
      * FilemanagerPath constructor.
@@ -43,7 +42,13 @@ class FilemanagerPath
     public function __construct(Filemanager $filemanager = null)
     {
         $this->helper = $filemanager;
-        $this->storage = $this->helper->getStorage($this->path('url'));
+    }
+
+    public function __get($name)
+    {
+        if ($name == 'storage') {
+            return $this->helper->getStorage($this->path('url'));
+        }
     }
 
 
@@ -144,6 +149,7 @@ class FilemanagerPath
      */
     public function url()
     {
+
         return $this->storage->url($this->path('url'));
     }
 
@@ -184,12 +190,13 @@ class FilemanagerPath
     {
         return Container::getInstance()->makeWith(FilemanagerItem::class, [
             'filemanager' => (clone $this)->setName($this->helper->getNameFromPath($item_path)),
-            'helper' => $this - $this->helper
+            'helper' => $this->helper
         ]);
     }
 
     /**
      * @return mixed
+     * @throws BindingResolutionException
      */
     public function delete()
     {
@@ -243,10 +250,11 @@ class FilemanagerPath
     public function normalizeWorkingDir()
     {
         $path = $this->working_dir
-            ?: $this->helper->input('working_dir')
+                ?: $this->helper->input('working_dir')
                 ?: $this->helper->getRootFolder();
 
         if ($this->is_thumb) {
+
             $path = rtrim($path, Filemanager::DS) . Filemanager::DS . $this->helper->getThumbFolderName();
         }
 
@@ -282,9 +290,9 @@ class FilemanagerPath
      * @param $variables
      * @throws \Exception
      */
-    public function error($error_type, $variables)
+    public function error($error_type, $variables = [])
     {
-       $this->helper->error($error_type, $variables);
+        $this->helper->error($error_type, $variables);
     }
 
     /**
@@ -297,6 +305,7 @@ class FilemanagerPath
         $this->uploadValidator($file);
         $new_file_name = $this->getNewName($file);
         $new_file_path = $this->setName($new_file_name)->path('absolute');
+
         event(new ImageIsUploading($new_file_path));
 
         try {
@@ -317,7 +326,7 @@ class FilemanagerPath
      */
     public function uploadValidator($file)
     {
-        $arr['file'] = $file;
+        $arr['upload'] = $file;
 
         if ($this->helper->config('should_validate_size', false)) {
             $max_size = $this->helper->maxUploadSize();
@@ -330,13 +339,12 @@ class FilemanagerPath
         } else {
             $mimes = "";
         }
-
         $validator = Validator::make($arr, [
-            'file' => "required|max:{$max_size}" . $mimes,
+            'upload' => "required|max:{$max_size}" . $mimes,
         ]);
 
         if ($validator->fails()) {
-            throw new ValidationException($validator);
+            throw new ValidationException($validator->errors());
         }
 
         return 'pass';
@@ -357,7 +365,7 @@ class FilemanagerPath
             $new_file_name = preg_replace('/[^A-Za-z0-9\-\']/', '_', $new_file_name);
         }
 
-        $extension = $file->getClientOriginalExtenstion();
+        $extension = $file->getClientOriginalExtension();
         if ($extension) {
             $new_file_name .= '.' . $extension;
         }
@@ -372,6 +380,7 @@ class FilemanagerPath
      */
     private function saveFile($file, $new_file_name)
     {
+
         $this->setName($new_file_name)->storage->save($file);
 
         $this->makeThumbnail($new_file_name);

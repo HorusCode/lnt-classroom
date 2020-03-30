@@ -19,21 +19,13 @@ class FilemanagerController extends Controller
      * @var string
      */
     protected static $success_response = 'OK';
-    /**
-     * @var Application
-     */
-    protected $helper;
-    protected $filemanager;
+
 
     /**
      * FilemanagerController constructor.
-     * @param FilemanagerPath $filemanager
-     * @param Filemanager $helper
      */
-    public function __construct(FilemanagerPath $filemanager, Filemanager $helper)
+    public function __construct()
     {
-        $this->helper = $helper;
-        $this->filemanager = $filemanager;
         $this->applyIniOverrides();
     }
 
@@ -41,14 +33,14 @@ class FilemanagerController extends Controller
      * @param $name
      * @return Application|mixed
      */
-   /* public function __get($name)
+    public function __get($name)
     {
         if ($name === 'filemanager') {
             return app(FilemanagerPath::class);
         } else if ($name === "helper") {
             return app(Filemanager::class);
         }
-    }*/
+    }
 
     /**
      * @return array
