@@ -231,15 +231,9 @@ class FilemanagerItem
      */
     public function shouldCreateThumb()
     {
-        if (!$this->helper->config('should_create_thumbnails')) {
-            return false;
-        }
-
-        if (!$this->isImage()) {
-            return false;
-        }
-
-        if (in_array($this->mimeType(), ['image/gif', 'image/svg+xml'])) {
+        if (!$this->helper->config('should_create_thumbnails') ||
+            !$this->isImage() ||
+            in_array($this->mimeType(), ['image/gif', 'image/svg+xml'])) {
             return false;
         }
 

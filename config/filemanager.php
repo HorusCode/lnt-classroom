@@ -27,6 +27,8 @@ return [
                 'image/png',
                 'image/gif',
                 'image/svg+xml',
+                'application/pdf',
+                'text/plain',
             ],
         ],
         'image' => [
@@ -39,8 +41,6 @@ return [
                 'image/png',
                 'image/gif',
                 'image/svg+xml',
-                'application/pdf',
-                'text/plain',
             ],
         ],
     ],

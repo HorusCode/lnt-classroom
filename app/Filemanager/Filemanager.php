@@ -4,6 +4,7 @@
 namespace App\Filemanager;
 
 use App\Http\Repositories\FilemanagerRepository;
+use Exception;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Request;
@@ -275,11 +276,11 @@ class Filemanager
     /**
      * @param $error_type
      * @param $variables
-     * @throws \Exception
+     * @throws Exception
      */
     public function error($error_type, $variables = [])
     {
-        throw new \Exception(trans('filemanager.error-'.$error_type, $variables));
+        throw new Exception(trans('filemanager.error-'.$error_type, $variables));
     }
 
 }
