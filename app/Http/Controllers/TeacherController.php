@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Teacher;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -18,5 +17,9 @@ class TeacherController extends Controller
     public function viewStudents()
     {
         return view('pages.all_human');
+    }
+    public function viewFilemanager()
+    {
+        return view('layouts.filemanager');
     }
 }

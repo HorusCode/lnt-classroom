@@ -43,12 +43,6 @@ Route::middleware('auth:api')->prefix('v1')->group(function () {
         'prefix' => 'fm',
         'namespace' => 'Api\v1\Filemanager'
     ], function () {
-        // display main layout
-        Route::get('/', [
-            'uses' => 'FilemanagerController@show',
-            'as' => 'show',
-        ]);
-
         // display integration error messages
         Route::get('/errors', [
             'uses' => 'FilemanagerController@getErrors',
